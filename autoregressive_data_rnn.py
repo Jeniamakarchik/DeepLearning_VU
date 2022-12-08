@@ -180,7 +180,6 @@ class Net(nn.Module):
 
         self.vocab_size = vocab_size
         self.embedding_size = embedding_size
-        self.lstm_size = lstm_num_layers
         self.lstm_hidden_size = hidden_size
         self.lstm_num_layers = lstm_num_layers
 
@@ -243,7 +242,7 @@ def train(dataloader, model, loss_fn, optimizer):
 # TODO
 # very first rough draft for now:
 # use sample function from assignment
-def predict(dataset, model, seq, max_length=20):
+def predict(dataset, model, seq, temperature=1.0, max_length=20):
     """
     :param dataset: need i2w and w2i
     :param model: the model we sample from
@@ -257,7 +256,7 @@ def predict(dataset, model, seq, max_length=20):
         x = torch.tensor([[dataset.w2i[i] for w in seq[i:]]])
         y = model.forward(x)
         last_token_logits = y[0][-1]
-        j = sample(last_token_logits, temperature=0.0)
+        j = sample(last_token_logits, temperature)
         pred.append(seq.dataset.i2w[j])
         if seq.dataset.i2w[j] == '.end':
             return pred
