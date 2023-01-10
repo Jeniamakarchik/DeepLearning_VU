@@ -1,7 +1,14 @@
 # Custom
 *.pkl*
 */imgs
+*/images
 .DS_Store
+
+# Data
+**/data/
+**/MNIST/
+**/*.gz
+**/*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
